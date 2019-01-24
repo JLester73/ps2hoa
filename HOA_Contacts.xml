@@ -1,0 +1,82 @@
+<!DOCTYPE etl SYSTEM "http://scriptella.javaforge.com/dtd/etl.dtd">
+<etl>
+	<description>Contacts Export for HealthOffice Anywhere</description>
+	<properties>
+		<!--Loading from external properties file-->
+		<include href="etl.properties"/>
+	</properties>
+	<connection id="POWERSCHOOLDB" driver="$driver1" url="$url1" user="$user1" password="$password1" classpath="$classpath1"/>
+	<connection id="HOA_Contacts" driver="csv" url="$outputcsv23">
+		null_string=
+		eol=\r\n
+	</connection>
+	    <script connection-id="HOA_Contacts">
+			Student Identification Type, Student Primary Identification ID,Relationship,Contact First Name,Contact Last Name,Phone Type 1,Phone Number 1,Contact Address Line 1,Contact Address City,Contact Address State,Contact Address Postal Code,Phone Type 2,Phone Number 2,Phone Type 3,Phone Number 3,Email Address
+		</script>
+	<query connection-id="POWERSCHOOLDB">
+		select Student_Number,
+		ps_customfields.getcf('students', id, 'cnt1_rel') as cnt1_rel,
+		ps_customfields.getcf('students', id, 'cnt1_fname') as cnt1_fname,
+		ps_customfields.getcf('students', id, 'cnt1_lname') as cnt1_lname,
+		ps_customfields.getcf('students', id, 'cnt1_hphone') as cnt1_hphone,
+		ps_customfields.getcf('students', id, 'cnt1_street') as cnt1_street,
+		ps_customfields.getcf('students', id, 'cnt1_city') as cnt1_city,
+		ps_customfields.getcf('students', id, 'cnt1_state') as cnt1_state,
+		ps_customfields.getcf('students', id, 'cnt1_zip') as cnt1_zip,
+		ps_customfields.getcf('students', id, 'cnt1_wphone') as cnt1_wphone,
+		ps_customfields.getcf('students', id, 'cnt1_cphone') as cnt1_cphone,
+		ps_customfields.getcf('students', id, 'cnt1_email') as cnt1_email,
+		ps_customfields.getcf('students', id, 'cnt2_rel') as cnt2_rel,
+		ps_customfields.getcf('students', id, 'cnt2_fname') as cnt2_fname,
+		ps_customfields.getcf('students', id, 'cnt2_lname') as cnt2_lname,
+		ps_customfields.getcf('students', id, 'cnt2_hphone') as cnt2_hphone,
+		ps_customfields.getcf('students', id, 'cnt2_street') as cnt2_street,
+		ps_customfields.getcf('students', id, 'cnt2_city') as cnt2_city,
+		ps_customfields.getcf('students', id, 'cnt2_state') as cnt2_state,
+		ps_customfields.getcf('students', id, 'cnt2_zip') as cnt2_zip,
+		ps_customfields.getcf('students', id, 'cnt2_wphone') as cnt2_wphone,
+		ps_customfields.getcf('students', id, 'cnt2_cphone') as cnt2_cphone,
+		ps_customfields.getcf('students', id, 'cnt2_email') as cnt2_email,
+		ps_customfields.getcf('students', id, 'cnt3_rel') as cnt3_rel,
+		ps_customfields.getcf('students', id, 'cnt3_fname') as cnt3_fname,
+		ps_customfields.getcf('students', id, 'cnt3_lname') as cnt3_lname,
+		ps_customfields.getcf('students', id, 'cnt3_hphone') as cnt3_hphone,
+		ps_customfields.getcf('students', id, 'cnt3_street') as cnt3_street,
+		ps_customfields.getcf('students', id, 'cnt3_city') as cnt3_city,
+		ps_customfields.getcf('students', id, 'cnt3_state') as cnt3_state,
+		ps_customfields.getcf('students', id, 'cnt3_zip') as cnt3_zip,
+		ps_customfields.getcf('students', id, 'cnt3_wphone') as cnt3_wphone,
+		ps_customfields.getcf('students', id, 'cnt3_cphone') as cnt3_cphone,
+		ps_customfields.getcf('students', id, 'cnt3_email') as cnt3_email,
+		ps_customfields.getcf('students', id, 'cnt4_rel') as cnt4_rel,
+		ps_customfields.getcf('students', id, 'cnt4_fname') as cnt4_fname,
+		ps_customfields.getcf('students', id, 'cnt4_lname') as cnt4_lname,
+		ps_customfields.getcf('students', id, 'cnt4_hphone') as cnt4_hphone,
+		ps_customfields.getcf('students', id, 'cnt4_street') as cnt4_street,
+		ps_customfields.getcf('students', id, 'cnt4_city') as cnt4_city,
+		ps_customfields.getcf('students', id, 'cnt4_state') as cnt4_state,
+		ps_customfields.getcf('students', id, 'cnt4_zip') as cnt4_zip,
+		ps_customfields.getcf('students', id, 'cnt4_wphone') as cnt4_wphone,
+		ps_customfields.getcf('students', id, 'cnt4_cphone') as cnt4_cphone,
+		ps_customfields.getcf('students', id, 'cnt4_email') as cnt4_email,
+		ps_customfields.getcf('students', id, 'cnt5_rel') as cnt5_rel,
+		ps_customfields.getcf('students', id, 'cnt5_fname') as cnt5_fname,
+		ps_customfields.getcf('students', id, 'cnt5_lname') as cnt5_lname,
+		ps_customfields.getcf('students', id, 'cnt5_hphone') as cnt5_hphone,
+		ps_customfields.getcf('students', id, 'cnt5_street') as cnt5_street,
+		ps_customfields.getcf('students', id, 'cnt5_city') as cnt5_city,
+		ps_customfields.getcf('students', id, 'cnt5_state') as cnt5_state,
+		ps_customfields.getcf('students', id, 'cnt5_zip') as cnt5_zip,
+		ps_customfields.getcf('students', id, 'cnt5_wphone') as cnt5_wphone,
+		ps_customfields.getcf('students', id, 'cnt5_cphone') as cnt5_cphone,
+		ps_customfields.getcf('students', id, 'cnt5_email') as cnt5_email
+		from students s where s.ENROLL_STATUS in (-1,0);
+        <script connection-id="HOA_Contacts">
+			District-Assigned,$student_number,$cnt1_rel,$cnt1_fname,$cnt1_lname,Main Telephone Number,$cnt1_hphone,$cnt1_street,$cnt1_city,$cnt1_state,$cnt1_zip,Alternate Phone Number,$cnt1_wphone,Mobile,$cnt1_cphone,$cnt1_email
+			District-Assigned,$student_number,$cnt2_rel,$cnt2_fname,$cnt2_lname,Main Telephone Number,$cnt2_hphone,$cnt2_street,$cnt2_city,$cnt2_state,$cnt2_zip,Alternate Phone Number,$cnt2_wphone,Mobile,$cnt2_cphone,$cnt2_email
+			District-Assigned,$student_number,$cnt3_rel,$cnt3_fname,$cnt3_lname,Main Telephone Number,$cnt3_hphone,$cnt3_street,$cnt3_city,$cnt3_state,$cnt3_zip,Alternate Phone Number,$cnt3_wphone,Mobile,$cnt3_cphone,$cnt3_email
+			District-Assigned,$student_number,$cnt4_rel,$cnt4_fname,$cnt4_lname,Main Telephone Number,$cnt4_hphone,$cnt4_street,$cnt4_city,$cnt4_state,$cnt4_zip,Alternate Phone Number,$cnt4_wphone,Mobile,$cnt4_cphone,$cnt4_email
+			District-Assigned,$student_number,$cnt5_rel,$cnt5_fname,$cnt5_lname,Main Telephone Number,$cnt5_hphone,$cnt5_street,$cnt5_city,$cnt5_state,$cnt5_zip,Alternate Phone Number,$cnt5_wphone,Mobile,$cnt5_cphone,$cnt5_email
+		</script>
+	</query>
+</etl>

@@ -1,0 +1,28 @@
+<!DOCTYPE etl SYSTEM "http://scriptella.javaforge.com/dtd/etl.dtd">
+<etl>
+	<description>Students Export for HealthOffice Anywhere</description>
+	<properties>
+		<!--Loading from external properties file-->
+		<include href="etl.properties"/>
+	</properties>
+	<connection id="POWERSCHOOLDB" driver="$driver1" url="$url1" user="$user1" password="$password1" classpath="$classpath1"/>
+	<connection id="HOA_Students" driver="csv" url="$outputcsv21">
+		null_string=
+		eol=\r\n
+	</connection>
+	    <script connection-id="HOA_Students">
+			Student Identification Type, Student Primary Identification ID, Student First Name, Student Middle Name, Student Last Name, Student Birth Date, Student Gender, Grade, School Identification, Line 1, City, State Province, Postal Code, Phone Type, Phone Number, Student Ethnicity, Home Room, Email Type, Email Address,Track Year,Alert_Medical
+		</script>
+	<query connection-id="POWERSCHOOLDB">
+        select s.STUDENT_NUMBER, s.FIRST_NAME, s.MIDDLE_NAME, s.LAST_NAME, to_char(s.dob,'MM/DD/YYYY') as dob, s.Gender, s.GRADE_LEVEL, s.SCHOOLID,
+		s.STREET, s.CITY,s.STATE, s.ZIP, s.HOME_PHONE, s.ETHNICITY, s.HOME_ROOM, psc.email, REPLACE(REPLACE(dbms_lob.substr(Alert_Medical,500,1), CHR(13), ' '), CHR(10), ' ')  as alert
+		from PSM_Studentcontact psc
+		inner join psm_studentcontacttype psct on psc.studentcontacttypeid= psct.id and psct.name='Self'
+		inner join sync_studentmap ssm on psc.studentid = ssm.studentid
+		inner join students s on ssm.studentsdcid = s.dcid 
+		where s.ENROLL_STATUS in (-1,0);
+        <script connection-id="HOA_Students">
+			District-Assigned,$student_number,$first_name,$middle_name,$last_name,$dob,$gender,$grade_level,$schoolid,$street,$city,$state,$zip,Main Telephone Number,$home_phone,$ethnicity,$home_room,Primary,$email,2018-2019,$alert
+		</script>
+	</query>
+</etl>

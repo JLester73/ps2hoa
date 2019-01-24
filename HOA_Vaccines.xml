@@ -1,0 +1,127 @@
+<!DOCTYPE etl SYSTEM "http://scriptella.javaforge.com/dtd/etl.dtd">
+<etl>
+	<description>Vaccines Export for HealthOffice Anywhere</description>
+	<properties>
+		<!--Loading from external properties file-->
+		<include href="etl.properties"/>
+	</properties>
+	<connection id="POWERSCHOOLDB" driver="$driver1" url="$url1" user="$user1" password="$password1" classpath="$classpath1"/>
+	<connection id="HOA_Vaccines" driver="csv" url="$outputcsv22">
+		null_string=
+		eol=\r\n
+	</connection>
+	    <script connection-id="HOA_Vaccines">
+			Student Identification Type, Student Primary Identification ID, Vaccine ID, Dose Date
+		</script>
+	<query connection-id="POWERSCHOOLDB">
+		select student_number,
+		ps_customfields.getcf('students', id, 'dtp1') as dtp1,
+		ps_customfields.getcf('students', id, 'dtp2') as dtp2,
+		ps_customfields.getcf('students', id, 'dtp3') as dtp3,
+		ps_customfields.getcf('students', id, 'dtp4') as dtp4,
+		ps_customfields.getcf('students', id, 'dtp5') as dtp5,
+		ps_customfields.getcf('students', id, 'dtp6') as dtp6,
+		ps_customfields.getcf('students', id, 'bdtp1') as bdtp1,
+		ps_customfields.getcf('students', id, 'hepatitis1') as hepatitis1,
+		ps_customfields.getcf('students', id, 'hepatitis2') as hepatitis2,
+		ps_customfields.getcf('students', id, 'hepatitis3') as hepatitis3,
+		ps_customfields.getcf('students', id, 'hepatitis4') as hepatitis4,
+		ps_customfields.getcf('students', id, 'hpv1') as hpv1,
+		ps_customfields.getcf('students', id, 'hpv2') as hpv2,
+		ps_customfields.getcf('students', id, 'hpv3') as hpv3,
+		ps_customfields.getcf('students', id, 'mmr1') as mmr1,
+		ps_customfields.getcf('students', id, 'mmr2') as mmr2,
+		ps_customfields.getcf('students', id, 'mmr3') as mmr3,
+		ps_customfields.getcf('students', id, 'mmr4') as mmr4,
+		ps_customfields.getcf('students', id, 'mmr5') as mmr5,
+		ps_customfields.getcf('students', id, 'polio1') as polio1,
+		ps_customfields.getcf('students', id, 'polio2') as polio2,
+		ps_customfields.getcf('students', id, 'polio3') as polio3,
+		ps_customfields.getcf('students', id, 'polio4') as polio4,
+		ps_customfields.getcf('students', id, 'polio5') as polio5,
+		ps_customfields.getcf('students', id, 'var1') as var1,
+		ps_customfields.getcf('students', id, 'var2') as var2,
+		ps_customfields.getcf('students', id, 'var3') as var3,
+		ps_customfields.getcf('students', id, 'var4') as var4,
+		ps_customfields.getcf('students', id, 'hib1') as hib1,
+		ps_customfields.getcf('students', id, 'hib2') as hib2,
+		ps_customfields.getcf('students', id, 'hib3') as hib3,
+		ps_customfields.getcf('students', id, 'hib4') as hib4,
+		ps_customfields.getcf('students', id, 'hib5') as hib5,
+		ps_customfields.getcf('students', id, 'hepatitis_a1') as hepatitis_a1,
+		ps_customfields.getcf('students', id, 'hepatitis_a2') as hepatitis_a2,
+		ps_customfields.getcf('students', id, 'inf1') as inf1,
+		ps_customfields.getcf('students', id, 'inf2') as inf2,
+		ps_customfields.getcf('students', id, 'inf3') as inf3,
+		ps_customfields.getcf('students', id, 'inf4') as inf4,
+		ps_customfields.getcf('students', id, 'inf5') as inf5,
+		ps_customfields.getcf('students', id, 'men1') as men1,
+		ps_customfields.getcf('students', id, 'men2') as men2,
+		ps_customfields.getcf('students', id, 'men3') as men3,
+		ps_customfields.getcf('students', id, 'men4') as men4,
+		ps_customfields.getcf('students', id, 'pcv1') as pcv1,
+		ps_customfields.getcf('students', id, 'pcv2') as pcv2,
+		ps_customfields.getcf('students', id, 'pcv3') as pcv3,
+		ps_customfields.getcf('students', id, 'pcv4') as pcv4,
+		ps_customfields.getcf('students', id, 'pcv5') as pcv5,
+		ps_customfields.getcf('students', id, 'rv1') as rv1,
+		ps_customfields.getcf('students', id, 'rv2') as rv2,
+		ps_customfields.getcf('students', id, 'rv3') as rv3
+		from students s
+		where s.ENROLL_STATUS in (-1,0);
+        <script connection-id="HOA_Vaccines">
+			District-Assigned,$student_number,DTP (Unknown),$dtp1
+			District-Assigned,$student_number,DTP (Unknown),$dtp2
+			District-Assigned,$student_number,DTP (Unknown),$dtp3
+			District-Assigned,$student_number,DTP (Unknown),$dtp4
+			District-Assigned,$student_number,DTP (Unknown),$dtp5
+			District-Assigned,$student_number,DTP (Unknown),$dtp6
+			District-Assigned,$student_number,Tdap (Unknown),$bdtp1
+			District-Assigned,$student_number,HepB (Unknown),$hepatitis1
+			District-Assigned,$student_number,HepB (Unknown),$hepatitis2
+			District-Assigned,$student_number,HepB (Unknown),$hepatitis3
+			District-Assigned,$student_number,HepB (Unknown),$hepatitis4
+			District-Assigned,$student_number,HPV (Unknown),$hpv1
+			District-Assigned,$student_number,HPV (Unknown),$hpv2
+			District-Assigned,$student_number,HPV (Unknown),$hpv3
+			District-Assigned,$student_number,MMR (Unknown),$mmr1
+			District-Assigned,$student_number,MMR (Unknown),$mmr2
+			District-Assigned,$student_number,MMR (Unknown),$mmr3
+			District-Assigned,$student_number,MMR (Unknown),$mmr4
+			District-Assigned,$student_number,MMR (Unknown),$mmr5
+			District-Assigned,$student_number,Polio (Unknown),$polio1
+			District-Assigned,$student_number,Polio (Unknown),$polio2
+			District-Assigned,$student_number,Polio (Unknown),$polio3
+			District-Assigned,$student_number,Polio (Unknown),$polio4
+			District-Assigned,$student_number,Polio (Unknown),$polio5
+			District-Assigned,$student_number,Varicella (Unknown),$var1
+			District-Assigned,$student_number,Varicella (Unknown),$var2
+			District-Assigned,$student_number,Varicella (Unknown),$var3
+			District-Assigned,$student_number,Varicella (Unknown),$var4
+			District-Assigned,$student_number,Hib (Unknown),$hib1
+			District-Assigned,$student_number,Hib (Unknown),$hib2
+			District-Assigned,$student_number,Hib (Unknown),$hib3
+			District-Assigned,$student_number,Hib (Unknown),$hib4
+			District-Assigned,$student_number,Hib (Unknown),$hib5
+			District-Assigned,$student_number,HepA (Unknown),$hepatitis_a1
+			District-Assigned,$student_number,HepA (Unknown),$hepatitis_a2
+			District-Assigned,$student_number,Influenza (Unknown),$inf1
+			District-Assigned,$student_number,Influenza (Unknown),$inf2
+			District-Assigned,$student_number,Influenza (Unknown),$inf3
+			District-Assigned,$student_number,Influenza (Unknown),$inf4
+			District-Assigned,$student_number,Influenza (Unknown),$inf5
+			District-Assigned,$student_number,Meningococcal (MCV4) (Unknown),$men1
+			District-Assigned,$student_number,Meningococcal (MCV4) (Unknown),$men2
+			District-Assigned,$student_number,Meningococcal (MCV4) (Unknown),$men3
+			District-Assigned,$student_number,Meningococcal (MCV4) (Unknown),$men4
+			District-Assigned,$student_number,Pneumococcal (Unknown),$pcv1
+			District-Assigned,$student_number,Pneumococcal (Unknown),$pcv2
+			District-Assigned,$student_number,Pneumococcal (Unknown),$pcv3
+			District-Assigned,$student_number,Pneumococcal (Unknown),$pcv4
+			District-Assigned,$student_number,Pneumococcal (Unknown),$pcv5
+			District-Assigned,$student_number,Rotavirus (Unknown),$rv1
+			District-Assigned,$student_number,Rotavirus (Unknown),$rv2
+			District-Assigned,$student_number,Rotavirus (Unknown),$rv3
+		</script>
+	</query>
+</etl>
